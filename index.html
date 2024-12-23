@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jey mode hemker wkwk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #00FF00;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: backgroundMove 6s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .container {
+            z-index: 10;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+            color: #00FF00;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: textPop 1s ease-in-out;
+            text-shadow: 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00;
+        }
+
+        .code-line {
+            font-size: 1.5em;
+            line-height: 2;
+            text-align: left;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            display: inline-block;
+            animation: typing 4s steps(80) 1s forwards;
+            text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+        }
+
+        .button {
+            background-color: #00FF00;
+            color: #111;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 20;
+            position: relative;
+            width: 100%;
+            max-width: 250px;
+            margin: 20px auto;
+        }
+
+        .button:hover {
+            background-color: #008000;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.6);
+        }
+
+        .button:focus {
+            outline: none;
+        }
+
+        .button:active {
+            transform: scale(1.05);
+        }
+
+        /* Modal Peringatan */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.5s ease;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background-color: #222;
+            color: #FF0000;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            font-size: 2.5em;
+            text-align: center;
+            animation: slideIn 1s ease-out;
+            border: 2px solid red;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: #FF0000;
+            font-size: 2.5em;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .close:hover {
+            transform: scale(1.3);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInModal {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-200px); }
+            100% { transform: translateY(0); }
+        }
+
+        .warning-shake {
+            animation: shake 0.5s ease-in-out 3;
+            color: #FF0000;
+            font-size: 2.5em;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Pop-up LEMAH */
+        .weak-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .weak-modal-content {
+            background-color: #222;
+            color: #FF0000;
+            font-size: 5em;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            transform: scale(0);
+            animation: scaleUp 0.5s forwards, shakeWeak 0.5s ease-in-out 3;
+        }
+
+        @keyframes scaleUp {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shakeWeak {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-15px); }
+            50% { transform: translateX(15px); }
+            75% { transform: translateX(-15px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Responsivitas */
+        @media (max-width: 1024px) {
+            h1 { font-size: 2em; }
+            .code-line { font-size: 1.2em; }
+            .button { font-size: 1.2em; padding: 12px 24px; }
+            .modal-content { font-size: 2.2em; padding: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .code-line { font-size: 1em; }
+            .button { font-size: 1.1em; padding: 10px 20px; }
+            .modal-content { font-size: 2em; padding: 25px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.5em; }
+            .code-line { font-size: 0.9em; }
+            .button { font-size: 1em; padding: 8px 18px; }
+            .modal-content { font-size: 1.8em; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Assalamualaikum Kak</h1>
+        <div class="code-line">
+            &gt; <span style="color: #FFEB3B;">sudo</span> <span style="color: #00FF00;">echo</span> "Menghubungkan ...";<br>
+            &gt; <span style="color: #FFEB3B;">sudo</span> <span style="color: #00FF00;">echo</span> "Mencari jalur koneksi ...";<br>
+            &gt; <span style="color: #FFEB3B;">ping</span> 192.168.0.1 <span style="color: #FFEB3B;">-t</span> 10<br>
+            &gt; <span style="color: #FFEB3B;">if</span> <span style="color: #00FF00;">heart.connected</span> <span style="color: #FFEB3B;">then</span> 
+            <span style="color: #00FF00;">echo</span> "Hati Terkoneksi!"<br>
+        </div>
+        <button class="button" id="showWarningButton">klik kak!</button>
+    </div>
+
+    <!-- Modal Peringatan -->
+    <div class="modal" id="myWarningModal">
+        <div class="modal-content warning-shake">
+            <span class="close" id="closeWarningModal">&times;</span>
+            <p>Peringatan: Perasaan Ini Terlalu Kuat!</p>
+            <p>Jika Anda melanjutkan, hati Anda akan terkena dampaknya!</p>
+            <button class="button" id="lanjutButton">Lanjut</button>
+            <button class="button" id="mundurButton">Batal</button>
+        </div>
+    </div>
+
+    <!-- Pop-up LEMAH -->
+    <div class="weak-modal" id="weakModal">
+        <div class="weak-modal-content">
+            Maaf Kak harus lanjut saya Maksa
+        </div>
+    </div>
+
+    <!-- Modal Cinta Lanjut -->
+    <div class="modal" id="lanjutModal">
+        <div class="modal-content">
+            <h1>Hati Berhasil Terkoneksi!</h1>
+            <p style="font-size: 2em;">Jangan Khawatir kak, Hati Anda Aman.</p>
+            <button class="button" id="closeLanjutModal">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        const warningModal = document.getElementById('myWarningModal');
+        const lanjutModal = document.getElementById('lanjutModal');
+        const weakModal = document.getElementById('weakModal');
+        const showWarningButton = document.getElementById('showWarningButton');
+        const closeWarningModal = document.getElementById('closeWarningModal');
+        const lanjutButton = document.getElementById('lanjutButton');
+        const mundurButton = document.getElementById('mundurButton');
+        const closeLanjutModal = document.getElementById('closeLanjutModal');
+
+        // Tampilkan modal peringatan
+        showWarningButton.onclick = function() {
+            warningModal.style.display = "flex";
+        }
+
+        // Tutup modal peringatan
+        closeWarningModal.onclick = function() {
+            warningModal.style.display = "none";
+        }
+
+        // Klik Lanjut
+        lanjutButton.onclick = function() {
+            warningModal.style.display = "none";
+            lanjutModal.style.display = "flex";
+        }
+
+        // Klik Mundur
+        mundurButton.onclick = function() {
+            warningModal.style.display = "none";
+            weakModal.style.display = "flex";
+        }
+
+        // Tutup modal lanjut
+        closeLanjutModal.onclick = function() {
+            lanjutModal.style.display = "none";
+        }
+
+        // Klik di luar modal untuk menutup
+        window.onclick = function(event) {
+            if (event.target == warningModal || event.target == lanjutModal || event.target == weakModal) {
+                warningModal.style.display = "none";
+                lanjutModal.style.display = "none";
+                weakModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
